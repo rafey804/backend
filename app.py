@@ -11,6 +11,7 @@ import json
 import shutil
 from concurrent.futures import ThreadPoolExecutor
 import re
+import os
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -820,9 +821,6 @@ def cleanup_old_downloads():
 
 cleanup_thread = threading.Thread(target=cleanup_old_downloads, daemon=True)
 cleanup_thread.start()
-
 if __name__ == '__main__':
-    print("Starting TikTok & Instagram Video Downloader")
-    print("TikTok: HD video downloads with watermark removal")
-    print("Instagram: Posts, Reels, IGTV support")
-    app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
+    port = int(os.environ.get('PORT', 8000))
+    app.run(host='0.0.0.0', port=port)
